@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\InsertCartItem;
+use App\Http\Requests\UpdteCartItem;
 
 class CartItemController extends Controller
 {
@@ -33,13 +36,31 @@ class CartItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InsertCartItem $request)
     {
-        $form = $request->all();
+        // $message = [
+        //     'required' => ':attribute 是必要的',
+        //     'integer' => ':attribute 的輸入須為數字',
+        //     'between' => ':attribute 的輸入 :input 不在 :min 和 :max 之間'
+        // ];
+
+        // $validator = Validator::make($request->all(), [
+        //     'cart_id' => 'required|integer',
+        //     'product_id' => 'required|integer',
+        //     'quantity' => 'required|integer|between:1 ,10'
+        // ], $message);
+
+        // if($validator->fails()) {
+        //     return response($validator->errors(), 400);
+        // }
+
+        // $validatedData = $validator->validated();
+        $validatedData = $request->validated();
+
         DB::table('cart_items')->insert([
-            'cart_id' => $form['cart_id'],
-            'product_id' => $form['product_id'],
-            'quantity' => $form['quantity'],
+            'cart_id' => $validatedData['cart_id'],
+            'product_id' => $validatedData['product_id'],
+            'quantity' => $validatedData['quantity'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -76,9 +97,9 @@ class CartItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdteCartItem $request, $id)
     {
-        $form = $request->all();
+        $form = $request->validated();
         DB::table('cart_items')
             ->where('id', $id)
             ->update([
