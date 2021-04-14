@@ -21,3 +21,4 @@ Route::resource('products', 'ProductController');
 Route::resource('carts', 'CartController');
 Route::resource('cart-items', 'CartItemController');
 Route::post('signup', 'AuthController@signup');
+Route::post('login', 'AuthController@login');
