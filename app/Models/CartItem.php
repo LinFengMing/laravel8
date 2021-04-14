@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CartItem extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $guarded = [''];
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
     // 自訂義屬性
     protected $appends = ['current_price'];
 

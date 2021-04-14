@@ -130,6 +130,8 @@ class CartItemController extends Controller
     {
         // DB::table('cart_items')->where('id', $id)->delete();
         $item = CartItem::find($id)->delete();
+        // 刪除軟刪除資料
+        // CartItem::withoutTrashed()->find($id)->forceDelete();
 
         return response()->json(true);
     }
