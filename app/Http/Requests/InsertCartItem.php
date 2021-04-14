@@ -24,7 +24,7 @@ class InsertCartItem extends ApiRequest
         return [
             'cart_id' => 'required|integer',
             'product_id' => 'required|integer',
-            'quantity' => 'required|integer|between:1 ,10'
+            'quantity' => 'required|integer|between:0 ,10'
         ];
     }
 
