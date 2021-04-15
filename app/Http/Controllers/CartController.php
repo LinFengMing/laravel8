@@ -25,7 +25,11 @@ class CartController extends Controller
         // $cartItems = DB::table('cart_items')->where('cart_id', $cart->id)->get();
         // $cart = collect($cart);
         // $cart["items"] = collect($cart);
-        $cart = Cart::with(['cartItems'])->firstOrCreate();
+        $user = auth()->user();
+        $cart = Cart::with(['cartItems'])
+            ->where('user_id', $user->id)
+            ->where('checkouted', false)
+            ->firstOrCreate(['user_id' => $user->id]);
 
         return response(collect($cart));
     }
@@ -94,5 +98,19 @@ class CartController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function checkout()
+    {
+        $user = auth()->user();
+        $cart = $user->carts()->where('checkouted', false)->with('cartItems')->first();
+
+        if($cart) {
+            $result = $cart->checkout();
+
+            return response($result);
+        }
+
+        return response('沒有購物車', 400);
     }
 }

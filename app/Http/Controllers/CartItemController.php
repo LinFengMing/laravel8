@@ -9,6 +9,7 @@ use App\Http\Requests\InsertCartItem;
 use App\Http\Requests\UpdteCartItem;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Product;
 
 class CartItemController extends Controller
 {
@@ -58,9 +59,15 @@ class CartItemController extends Controller
 
         // $validatedData = $validator->validated();
         $validatedData = $request->validated();
+        $product = Product::find($validatedData['product_id']);
+
+        if(!$product->checkQuantity($validatedData['quantity'])) {
+            return response($product->title.'數量不足', 400);
+        }
+
         $cart = Cart::find($validatedData['cart_id']);
         $result = $cart->cartItems()->create([
-            'product_id' => $validatedData['product_id'],
+            'product_id' => $product->id,
             'quantity' => $validatedData['quantity']
         ]);
 
