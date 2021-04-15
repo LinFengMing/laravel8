@@ -36,4 +36,16 @@ class AuthController extends Controller
         $tokenResult->token->save();
         return response(['token' => $tokenResult->accessToken]);
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+
+        return response(['message' => '登出成功']);
+    }
+
+    public function user(Request $request)
+    {
+        return response($request->user());
+    }
 }
