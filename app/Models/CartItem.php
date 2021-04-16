@@ -14,12 +14,12 @@ class CartItem extends Model
     protected $guarded = [''];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
     // 自訂義屬性
-    protected $appends = ['current_price'];
+    // protected $appends = ['current_price'];
 
-    public function getCurrentPriceAttribute()
-    {
-        return $this->quantity * 10;
-    }
+    // public function getCurrentPriceAttribute()
+    // {
+    //     return $this->quantity * 10;
+    // }
 
     public function product()
     {
