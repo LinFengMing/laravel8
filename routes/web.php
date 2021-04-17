@@ -28,6 +28,7 @@ Route::post('login', 'AuthController@login');
 Route::resource('admin/orders', 'Admin\OrderController');
 Route::post('admin/orders/delivery/{id}', 'Admin\OrderController@delivery');
 Route::post('admin/tools/update-product-price', 'Admin\ToolController@updateProductPrice');
+Route::post('admin/tools/create-product-redis', 'Admin\ToolController@createProductRedis');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('user', 'AuthController@user');
