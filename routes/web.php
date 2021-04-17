@@ -19,12 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'WebController@index');
 Route::get('/contact-us', 'WebController@contactUs');
 Route::post('/products/check-product', 'ProductController@checkProduct');
+Route::post('/read-notification', 'WebController@readNotification');
 
 Route::resource('products', 'ProductController');
 Route::post('signup', 'AuthController@signup');
 Route::post('login', 'AuthController@login');
 
 Route::resource('admin/orders', 'Admin\OrderController');
+Route::post('admin/orders/delivery/{id}', 'Admin\OrderController@delivery');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('user', 'AuthController@user');

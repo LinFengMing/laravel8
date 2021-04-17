@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Notifications\OrderDelivery;
 
 class OrderController extends Controller
 {
@@ -26,5 +27,20 @@ class OrderController extends Controller
             'orderCount' => $orderCount,
             'orderPages' => $orderPages
         ]);
+    }
+
+    public function delivery($id)
+    {
+        $order = Order::find($id);
+
+        if($order->is_shipped) {
+            return response(['result' => false]);
+        }
+        else {
+            $order->update(['is_shipped' => true]);
+            $order->user->notify(new OrderDelivery);
+
+            return response(['result' => true]);
+        }
     }
 }
