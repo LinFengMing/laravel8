@@ -100,6 +100,11 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'url_shorten' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/url_shorten.log'),
+        ],
     ],
 
 ];
