@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class Image extends Model
 {
     use HasFactory;
 
@@ -13,13 +13,8 @@ class OrderItem extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function product()
+    public function attachable()
     {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function order()
-    {
-        return $this->belongsTo(Order::class);
+        return $this->morphTo();
     }
 }
