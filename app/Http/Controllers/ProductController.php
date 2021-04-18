@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Support\Facades\Redis;
+use App\Http\Services\ShortUrlService;
 
 class ProductController extends Controller
 {
@@ -98,5 +99,13 @@ class ProductController extends Controller
         }
 
         return response(false);
+    }
+
+    public function sharedUrl($id)
+    {
+        $service = new ShortUrlService();
+        $url = $service->makeShortUrl("http://127.0.0.1:8000/products/$id");
+
+        return response(['url' => $url]);
     }
 }

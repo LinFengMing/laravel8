@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'WebController@index');
 Route::get('/contact-us', 'WebController@contactUs');
 Route::post('/products/check-product', 'ProductController@checkProduct');
+Route::get('/products/shared-url/{id}', 'ProductController@sharedUrl');
 Route::post('/read-notification', 'WebController@readNotification');
 
 Route::resource('products', 'ProductController');
