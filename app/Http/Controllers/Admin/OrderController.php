@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Notifications\OrderDelivery;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrdersExport;
+use App\Exports\OrdersMultipleExport;
 
 class OrderController extends Controller
 {
@@ -42,5 +45,15 @@ class OrderController extends Controller
 
             return response(['result' => true]);
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrdersExport, 'orders.xlsx');
+    }
+
+    public function exportByShipped()
+    {
+        return Excel::download(new OrdersMultipleExport, 'orders_by_shipped.xlsx');
     }
 }

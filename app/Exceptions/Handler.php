@@ -56,9 +56,9 @@ class Handler extends ExceptionHandler
             ]);
         });
 
-        $this->renderable(function (Throwable $e) {
-            return response()->view('error');
-        });
+        // $this->renderable(function (Throwable $e) {
+        //     return response()->view('error');
+        // });
     }
 
     public function unauthenticated($request, AuthenticationException $exception)

@@ -3,6 +3,10 @@
 <h2>後台-產品列表</h2>
 <span>產品總數：{{ $productCount }}</span>
 
+<div>
+    <input type="button" class="import" value="匯入 Excel">
+</div>
+
 @if($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -52,6 +56,10 @@
     $('.upload_image').on('click', function() {
         $('#product_id').val($(this).data('id'));
         $('#upload_image').modal();
+    });
+
+    $('.import').on('click', function() {
+        $('#import').modal();
     });
 </script>
 @endsection

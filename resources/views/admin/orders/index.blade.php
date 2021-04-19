@@ -3,6 +3,11 @@
 <h2>後台-訂單列表</h2>
 <span>訂單總數：{{ $orderCount }}</span>
 
+<div>
+    <a href="/admin/orders/excel/export">匯出訂單 Execl</a>
+    <a href="/admin/orders/excel/export-by-shipped">匯出分類訂單 Execl</a>
+</div>
+
 <table>
     <thead>
         <tr>

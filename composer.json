@@ -13,6 +13,8 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "lcobucci/jwt": "3.4.4",
+        "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.17",
         "predis/predis": "^1.1",
         "symfony/psr-http-message-bridge": "^2.1"
     },
