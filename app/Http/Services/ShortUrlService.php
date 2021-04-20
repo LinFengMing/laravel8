@@ -5,9 +5,11 @@ namespace App\Http\Services;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 
-class ShortUrlService
+class ShortUrlService implements ShortUrlInterfaceService
 {
     protected $client;
+
+    public $version = 2.5;
 
     public function __construct()
     {

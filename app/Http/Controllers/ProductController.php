@@ -7,9 +7,20 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use Illuminate\Support\Facades\Redis;
 use App\Http\Services\ShortUrlService;
+use App\Http\Services\AuthService;
 
 class ProductController extends Controller
 {
+    private $shortUrlService;
+
+    private $authService;
+
+    public function __construct(ShortUrlService $shortUrlService, AuthService $authService)
+    {
+        $this->shortUrlService = $shortUrlService;
+        $this->authService = $authService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -103,8 +114,9 @@ class ProductController extends Controller
 
     public function sharedUrl($id)
     {
-        $service = new ShortUrlService();
-        $url = $service->makeShortUrl("http://127.0.0.1:8000/products/$id");
+        $this->authService->fakeReturn();
+        // $service = new ShortUrlService();
+        $url = $this->shortUrlService->makeShortUrl("http://127.0.0.1:8000/products/$id");
 
         return response(['url' => $url]);
     }
