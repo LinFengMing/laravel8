@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,13 +34,11 @@ class CartItemControllerTest extends TestCase
      */
     public function testStore()
     {
-        $cart = $this->fakeUser->carts()->create();
-        $product = Product::create([
-            'title' => 'test product',
-            'content' => 'new',
-            'price' => 10,
-            'quantity' => 10
+        //$cart = $this->fakeUser->carts()->create();
+        $cart = Cart::factory()->create([
+            'user_id' => $this->fakeUser->id
         ]);
+        $product = Product::factory()->create();
 
         $response = $this->call(
             'POST',
@@ -52,6 +51,22 @@ class CartItemControllerTest extends TestCase
         );
 
         $response->assertOk();
+
+
+        $product = Product::factory()->less()->create();
+
+        $response = $this->call(
+            'POST',
+            'cart-items',
+            [
+                'cart_id' => $cart->id,
+                'product_id' => $product->id,
+                'quantity' => 10
+            ]
+        );
+
+        $this->assertEquals($product->title.'數量不足', $response->getContent());
+
 
         $response = $this->call(
             'POST',
@@ -68,17 +83,15 @@ class CartItemControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $cart = $this->fakeUser->carts()->create();
-        $product = Product::create([
-            'title' => 'test product',
-            'content' => 'new',
-            'price' => 10,
-            'quantity' => 10
-        ]);
-        $cartItem = $cart->cartItems()->create([
-            'product_id' => $product->id,
-            'quantity' => 2
-        ]);
+        // $cart = Cart::factory()->create([
+        //     'user_id' => $this->fakeUser->id
+        // ]);
+        // $product = Product::factory()->make();
+        // $cartItem = $cart->cartItems()->create([
+        //     'product_id' => $product->id,
+        //     'quantity' => 2
+        // ]);
+        $cartItem = CartItem::factory()->create();
 
         $response = $this->call(
             'PUT',
@@ -97,13 +110,10 @@ class CartItemControllerTest extends TestCase
 
     public function testDestroy()
     {
-        $cart = $this->fakeUser->carts()->create();
-        $product = Product::create([
-            'title' => 'test product',
-            'content' => 'new',
-            'price' => 10,
-            'quantity' => 10
+        $cart = Cart::factory()->create([
+            'user_id' => $this->fakeUser->id
         ]);
+        $product = Product::factory()->make();
         $cartItem = $cart->cartItems()->create([
             'product_id' => $product->id,
             'quantity' => 2
