@@ -11,9 +11,16 @@ h2 {
 }
 </style>
 
-<h2>商品列表</h2>
-<img src="https://s1.imgs.cc/img/aaaabvuoP.jpg?_w=750" alt="">
-<table>
+<div class="row">
+    <div class="col-4">
+        <h2>商品列表</h2>
+    </div>
+    <div class="col-8">
+        <img src="https://s.yimg.com/ny/api/res/1.2/8LV4q6rQWwueodC3k5qymQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTU0MC4zMDc2OTIzMDc2OTIzO2NmPXdlYnA-/https://s.yimg.com/uu/api/res/1.2/S2xvI02GB5KYehk92vJrbQ--~B/aD00Mzk7dz03ODA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/ko/setn.com.tw/4bcb3715f69dce4fdc17d758c942ab9a" alt="">
+    </div>
+</div>
+
+<table class="table">
     <thead>
         <tr>
             <td>標題</td>
@@ -32,10 +39,10 @@ h2 {
                 @endif
 
                 <td>{{ $product->content }}</td>
-                <td style="{{ $product->price < 30000 ? 'color:red; font-size:22px' : '' }}">{{ $product->price }}</td>
+                <td style="{{ $product->price < 30000 ? 'color:red; font-size:22px' : '' }}"><i class="fab fa-apple" style="font-size: 24px; color:orange;"></i>{{ $product->price }}</td>
                 <td>
-                    <input class="check_product" type="button" value="確認商品數量" data-id="{{ $product->id }}">
-                    <input class="check_shared_url" type="button" value="分享商品" data-id="{{ $product->id }}">
+                    <input class="check_product btn btn-success" type="button" value="確認商品數量" data-id="{{ $product->id }}">
+                    <input class="check_shared_url btn btn-warning" type="button" value="分享商品" data-id="{{ $product->id }}">
                 </td>
             </tr>
         @endforeach
